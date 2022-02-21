@@ -26,7 +26,16 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import Sound from 'react-native-sound';
+//import Sound from 'react-native-sound';
+import TrackPlayer, {
+  Capability,
+  Event,
+  RepeatMode,
+  State,
+  usePlaybackState,
+  useProgress,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -61,23 +70,43 @@ const App: () => Node = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  var whoosh = new Sound('http://51.81.49.98:8300/', Sound.MAIN_BUNDLE, (error) => {
-    if (error) {
-      console.log('failed to load the sound', error);
-      return;
-    }
-    // loaded successfully
-    console.log('duration in seconds: ' + whoosh.getDuration() + 'number of channels: ' + whoosh.getNumberOfChannels());
-  
-    // Play the sound with an onEnd callback
-    whoosh.play((success) => {
-      if (success) {
-        console.log('successfully finished playing');
-      } else {
-        console.log('playback failed due to audio decoding errors');
-      }
+
+    const start = async () => {
+      // Set up the player
+      await TrackPlayer.setupPlayer({
+        stopWithApp: true,
+      });
+
+      TrackPlayer.updateOptions({
+        // Media controls capabilities
+        stopWithApp: true,
+        capabilities: [
+            Capability.Play,
+            Capability.Pause,
+        ],
+    
+        // Capabilities that will show up when the notification is in the compact form on Android
+        compactCapabilities: [Capability.Play, Capability.Pause],
+
     });
-  });
+
+      // Add a track to the queue
+      await TrackPlayer.add({
+          id: '80075298',
+          url: 'http://51.81.49.98:8300/',
+          title: 'El Dorado Radio',
+          artist: 'Gobernación de Cundinamarca',
+          artwork: 'https://i.scdn.co/image/e5c7b168be89098eb686e02152aaee9d3a24e5b6',
+      });
+
+      // Start playing it
+      await TrackPlayer.play();
+
+      TrackPlayer.setVolume(0.4);
+    };
+    start();
+
+    
 
   return (
     <SafeAreaView style={backgroundStyle}>
