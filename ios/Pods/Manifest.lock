@@ -274,7 +274,7 @@ PODS:
     - glog
   - react-native-track-player (2.1.2):
     - React-Core
-    - SwiftAudioEx (= 0.14.5)
+    - SwiftAudioEx (= 0.14.6)
   - React-perflogger (0.67.3)
   - React-RCTActionSheet (0.67.3):
     - React-Core/RCTActionSheetHeaders (= 0.67.3)
@@ -345,7 +345,7 @@ PODS:
     - RNSound/Core (= 0.11.2)
   - RNSound/Core (0.11.2):
     - React-Core
-  - SwiftAudioEx (0.14.5)
+  - SwiftAudioEx (0.14.6)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -523,7 +523,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 15ea57ead631a11fad57634ff69f78e797113a39
   React-jsinspector: 1e1e03345cf6d47779e2061d679d0a87d9ae73d8
   React-logger: 1e10789cb84f99288479ba5f20822ce43ced6ffe
-  react-native-track-player: 23dd515aacf1d36a0e522ef7fdbc55f13f26d4fb
+  react-native-track-player: 89cf8fd9df3ddf3f0b9e937828ad1c570dc9b435
   React-perflogger: 93d3f142d6d9a46e635f09ba0518027215a41098
   React-RCTActionSheet: 87327c3722203cc79cf79d02fb83e7332aeedd18
   React-RCTAnimation: 009c87c018d50e0b38692699405ebe631ff4872d
@@ -537,7 +537,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: af1946623656f9c5fd64ca6f36f3863516193446
   ReactCommon: 650e33cde4fb7d36781cd3143f5276da0abb2f96
   RNSound: 6c156f925295bdc83e8e422e7d8b38d33bc71852
-  SwiftAudioEx: bfaff9894c885aded7edfb0793e25165d55053d4
+  SwiftAudioEx: 9f18322c1064c1bab3eaf0c91e58be76209c7fb3
   Yoga: 90dcd029e45d8a7c1ff059e8b3c6612ff409061a
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

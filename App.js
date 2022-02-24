@@ -74,7 +74,7 @@ const App: () => Node = () => {
     const start = async () => {
       // Set up the player
       await TrackPlayer.setupPlayer({
-        stopWithApp: true,
+        //sstopWithApp: true,
       });
 
       TrackPlayer.updateOptions({
@@ -121,7 +121,7 @@ const App: () => Node = () => {
           }}>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits44444 gfgf.
+            screen and then come back to see your editsssss.
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
