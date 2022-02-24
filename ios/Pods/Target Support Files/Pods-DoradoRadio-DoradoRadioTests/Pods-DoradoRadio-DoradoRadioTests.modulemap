@@ -1,0 +1,6 @@
+module Pods_DoradoRadio_DoradoRadioTests {
+  umbrella header "Pods-DoradoRadio-DoradoRadioTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

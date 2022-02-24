@@ -84,7 +84,7 @@ const App: () => Node = () => {
             Capability.Play,
             Capability.Pause,
         ],
-    
+
         // Capabilities that will show up when the notification is in the compact form on Android
         compactCapabilities: [Capability.Play, Capability.Pause],
 
@@ -106,7 +106,7 @@ const App: () => Node = () => {
     };
     start();
 
-    
+
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -121,7 +121,7 @@ const App: () => Node = () => {
           }}>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
+            screen and then come back to see your edits44444 gfgf.
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
