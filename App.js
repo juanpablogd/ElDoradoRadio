@@ -16,6 +16,9 @@ import {
   Text,
   useColorScheme,
   View,
+  Animated,
+  Easing,
+  ImageBackground,
 } from 'react-native';
 
 import {
@@ -26,7 +29,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-//import Sound from 'react-native-sound';
 import TrackPlayer, {
   Capability,
   Event,
@@ -37,41 +39,28 @@ import TrackPlayer, {
   useTrackPlayerEvents,
 } from 'react-native-track-player';
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import imageBG from './img/FondoApp3-01.jpg';
+import imageRotate from './img/giratoria.png';
 
 const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  let rotateValueHolder = new Animated.Value(0);
+  const RotateData = rotateValueHolder.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
+  const startImageRotateFunction = () => {
+    rotateValueHolder.setValue(0);
+    Animated.timing(rotateValueHolder, {
+      toValue: 1,
+      duration: 10000,
+      easing: Easing.linear,
+      useNativeDriver: false,
+    }).start(() => startImageRotateFunction());
   };
+  startImageRotateFunction();
 
-
-    const start = async () => {
+  const start = async () => {
       // Set up the player
       await TrackPlayer.setupPlayer({
         //sstopWithApp: true,
@@ -103,59 +92,38 @@ const App: () => Node = () => {
       await TrackPlayer.play();
 
       TrackPlayer.setVolume(0.4);
-    };
-    start();
-
-
+  };
+  start();
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
+    <View style={styles.container}>
+      <ImageBackground source={imageBG} resizeMode="cover" style={styles.image}>
+      <Animated.Image
           style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your editsssss.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            bottom:'10%',
+            left: '10%',
+            width: 200,
+            height: 200,
+            transform: [{ rotate: RotateData }],
+          }}
+          source={imageRotate}
+        />
+      </ImageBackground>
+    </View>
   );
+  
 };
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+    width: '125%',
+    height:'103%'
+  }
 });
 
 export default App;
