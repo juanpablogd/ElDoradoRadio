@@ -62,7 +62,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      volue: 5,
+      volue: 99,
     };    
   }
 
@@ -70,19 +70,21 @@ class App extends Component {
     console.log('Registro - evento didMount');
     this.start();                     //Inicia Audio
     this.startImageRotateFunction();  //Inicia Animación 
-
+    this.setVol(100);
   }
 
   setVol(volValue){  //console.log(someValue);
-    this.setState({volue: volValue});  //console.log(this.state.volue);
-    let valcalulado = this.state.volue/10; //console.log(valcalulado);
-    TrackPlayer.setVolume(valcalulado);
-    this.color();
+    if(this.state.volue != volValue){
+      this.setState({volue: volValue});   //console.log(this.state.volue);
+      let valcalulado = this.state.volue/100;  //console.log(valcalulado);
+      TrackPlayer.setVolume(valcalulado);
+      this.color();
+    }
   };
 
 /*************** COLOR CONTROL VOLUMEN ***************/
   interpolate (start, end) {
-    let k = (this.state.volue - 0) / 10; // 0 =>min  && 10 => MAX
+    let k = (this.state.volue - 0) / 100; // 0 =>min  && 10 => MAX
     return Math.ceil((1 - k) * start + k * end) % 256;
   };
 
@@ -146,7 +148,7 @@ class App extends Component {
     console.log('Renderiza Registro');
     return (
       <View style={styles.container}>
-        <ImageBackground source={imageBG} resizeMode="cover" style={styles.image}>
+        <ImageBackground source={imageBG} resizeMode="cover" style={styles.imageBG}>
         
         <Animated.Image
             style={{
@@ -159,11 +161,11 @@ class App extends Component {
 
           <MenuConnect ></MenuConnect>
 
-          <View style={[styles.contentView]}>
+          <View style={[styles.contentVol]}>
           <Slider
             value={this.state.volue}
             onValueChange={(volValue) => this.setVol(volValue)}
-            maximumValue={10}
+            maximumValue={100}
             minimumValue={0}
             step={1}
             allowTouchTrack
@@ -196,13 +198,11 @@ const styles = StyleSheet.create({
   container: {
     flex:1
   },
-  contentView: {
-      top:'1%',
+  contentVol: {
+      top:'5%',
       width:'80%',
-      //justifyContent: 'center',
-      //alignItems: 'stretch',
   },
-  image: {
+  imageBG: {
     justifyContent: "center",
     alignItems: 'center',
     width: '100%',
