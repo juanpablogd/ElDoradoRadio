@@ -42,25 +42,34 @@ const MenuConnect  = () => {
                 name='facebook'
                 type='font-awesome'
                 color='#4267B2'
-                onPress={() => Linking.openURL('https://www.facebook.com/ElDoradoRadio.Co/')} /><Icon
+                size={20}
+                onPress={() => Linking.openURL('https://www.facebook.com/ElDoradoRadio.Co/')} />
+                <Icon
                     reverse
                     name='whatsapp'
                     type='font-awesome'
                     color='#25D366'
-                    onPress={() => Linking.openURL('whatsapp://send?phone=+573103077351')} /><Icon
+                    size={20}
+                    onPress={() => Linking.openURL('whatsapp://send?phone=+573103077351')} />
+                <Icon
                     reverse
                     name='phone'
                     type='font-awesome'
                     color='#FF5A5F'
-                    onPress={() => Linking.openURL(`tel:3103077351`)} /><Icon
+                    size={20}
+                    onPress={() => Linking.openURL(`tel:3103077351`)} />
+                <Icon
                     reverse
                     name='share-alt'
                     type='font-awesome'
                     color='#0F9D58'
-                    onPress={onShare} /><Icon
+                    size={20}
+                    onPress={onShare} />
+                <Icon
                     reverse
                     name='web'
                     type='foundation'
+                    size={20}
                     onPress={() => Linking.openURL('http://www.eldoradoradio.co/inicio')} />
             </View>
 

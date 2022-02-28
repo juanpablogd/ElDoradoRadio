@@ -1,52 +1,29 @@
 /**
- * Sample React Native App
  * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
  */
 
 import React,{ Component, useState } from 'react';
-import {Node} from 'react';
 
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Animated,
-  Easing,
-  ImageBackground,
-
+import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,useColorScheme,View,Animated,Easing,ImageBackground,
 } from 'react-native';
 
 import { Slider,Icon } from 'react-native-elements';
 //LISTADO ICONOS https://oblador.github.io/react-native-vector-icons/
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
+import {Colors,DebugInstructions,Header,LearnMoreLinks,ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 import TrackPlayer, {
-  Capability,
-  Event,
-  RepeatMode,
-  State,
-  usePlaybackState,
-  useProgress,
-  useTrackPlayerEvents,
+  Capability,Event,RepeatMode,State,usePlaybackState,useProgress,useTrackPlayerEvents,
 } from 'react-native-track-player';
+
+import { OrientationLocker, PORTRAIT, LANDSCAPE } from "react-native-orientation-locker";
+
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import MenuConnect from './src/components/MenuConnect';
 //import ControlVolumen from './src/components/ControlVolumen';
-import imageBG from './img/FondoApp3-01.jpg';
+import imageBG from './img/FondoApp7-01.jpg';
 import imageRotate from './img/giratoria.png';
 import imgNotification from './img/PiezzaApp2-01.jpg';
 
@@ -61,8 +38,12 @@ let RotateData = rotateValueHolder.interpolate({
 class App extends Component {
   constructor() {
     super();
+    this.start = this.start.bind(this);
+    this.pause = this.pause.bind(this);
     this.state = {
       volue: 99,
+      reproduccion: true,
+      //spinner: false,
     };    
   }
 
@@ -71,6 +52,24 @@ class App extends Component {
     this.start();                     //Inicia Audio
     this.startImageRotateFunction();  //Inicia Animación 
     this.setVol(100);
+
+    // PlaybackState event listener
+    TrackPlayer.addEventListener(Event.PlaybackState, event => {
+      if (event.state === State.Playing) {
+          // When playing set userDidPause to false
+          this.setState({reproduccion: true});
+          //this.setState({spinner: false});
+      }
+      else if (event.state === State.Paused) {
+        this.setState({reproduccion: false});
+          //IF NOT PAUSED BY THE USER (IN CASE OF ISSUE) FORCE RETRY
+          if (this.userDidPause === false) {
+              TrackPlayer.play();
+              this.setState({reproduccion: true});
+              //this.setState({spinner: false});
+          }
+      }
+    })
   }
 
   setVol(volValue){  //console.log(someValue);
@@ -109,7 +108,8 @@ class App extends Component {
 /**********************************************************/
 
 /******************* AUDIO EMISORA *******************/
-  async start  () {
+  async start  () { console.log("Start");
+    this.setState({reproduccion: true});
       // Set up the player
       await TrackPlayer.setupPlayer({
         //sstopWithApp: true,
@@ -137,15 +137,16 @@ class App extends Component {
 
       // Start playing it
       await TrackPlayer.play();
-
       
   };
-  //TrackPlayer.setVolume(0.4);
+
+  async pause  () { console.log("Pause");
+    await TrackPlayer.pause();
+  };
 /**********************************************************/
 
 
-  render () {
-    console.log('Renderiza Registro');
+  render () { //console.log('Renderiza Registro');
     return (
       <View style={styles.container}>
         <ImageBackground source={imageBG} resizeMode="cover" style={styles.imageBG}>
@@ -159,9 +160,9 @@ class App extends Component {
             source={imageRotate}
         />
 
-          <MenuConnect ></MenuConnect>
+        <MenuConnect ></MenuConnect>
 
-          <View style={[styles.contentVol]}>
+        <View style={[styles.contentVol]}>
           <Slider
             value={this.state.volue}
             onValueChange={(volValue) => this.setVol(volValue)}
@@ -186,6 +187,23 @@ class App extends Component {
           />
         </View>
 
+        <View style={styles.icono}>
+          {this.state.reproduccion == true ? (
+            <Icon 
+            name='pause'
+            type='foundation'
+            color='#d2ab62'
+            size={55}
+            onPress={this.pause} />
+          ) : 
+            <Icon 
+            name='play'
+            type='font-awesome'
+            color='#d2ab62'
+            size={55}
+            onPress={this.start} />
+          }
+        </View>
           
         </ImageBackground>
         
@@ -207,7 +225,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height:'100%',
-  }
+  },
+  icono:{
+    top:'10%',
+  },
+  spinnerTextStyle: {
+    color: '#FFF'
+  },
 });
 
 export default App;
