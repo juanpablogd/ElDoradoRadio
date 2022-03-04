@@ -20,7 +20,7 @@ import TrackPlayer, {
 import { OrientationLocker, PORTRAIT, LANDSCAPE } from "react-native-orientation-locker";
 
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import SplashScreen from 'react-native-splash-screen'
 import MenuConnect from './src/components/MenuConnect';
 //import ControlVolumen from './src/components/ControlVolumen';
 import imageBG from './img/FondoApp7-01.jpg';
@@ -44,13 +44,14 @@ class App extends Component {
       volue: 99,
       reproduccion: true,
       //spinner: false,
-    };    
+    };
   }
 
   componentDidMount() {
     console.log('Registro - evento didMount');
+    SplashScreen.hide();
     this.start();                     //Inicia Audio
-    this.startImageRotateFunction();  //Inicia Animación 
+    this.startImageRotateFunction();  //Inicia Animación
     this.setVol(100);
 
     // PlaybackState event listener
@@ -137,7 +138,7 @@ class App extends Component {
 
       // Start playing it
       await TrackPlayer.play();
-      
+
   };
 
   async pause  () { console.log("Pause");
@@ -150,9 +151,10 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <ImageBackground source={imageBG} resizeMode="cover" style={styles.imageBG}>
-        
+
         <Animated.Image
             style={{
+              top: '5%',
               width: 200,
               height: 200,
               transform: [{ rotate: RotateData }],
@@ -189,14 +191,14 @@ class App extends Component {
 
         <View style={styles.icono}>
           {this.state.reproduccion == true ? (
-            <Icon 
+            <Icon
             name='pause'
             type='foundation'
             color='#d2ab62'
             size={55}
             onPress={this.pause} />
-          ) : 
-            <Icon 
+          ) :
+            <Icon
             name='play'
             type='font-awesome'
             color='#d2ab62'
@@ -204,9 +206,9 @@ class App extends Component {
             onPress={this.start} />
           }
         </View>
-          
+
         </ImageBackground>
-        
+
       </View>
     );
   }

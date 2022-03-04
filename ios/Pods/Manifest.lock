@@ -274,6 +274,8 @@ PODS:
     - glog
   - react-native-orientation-locker (1.4.0):
     - React-Core
+  - react-native-splash-screen (3.3.0):
+    - React-Core
   - react-native-track-player (2.1.2):
     - React-Core
     - SwiftAudioEx (= 0.14.6)
@@ -397,6 +399,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-track-player (from `../node_modules/react-native-track-player`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -469,6 +472,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-orientation-locker:
     :path: "../node_modules/react-native-orientation-locker"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   react-native-track-player:
     :path: "../node_modules/react-native-track-player"
   React-perflogger:
@@ -534,6 +539,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 1e1e03345cf6d47779e2061d679d0a87d9ae73d8
   React-logger: 1e10789cb84f99288479ba5f20822ce43ced6ffe
   react-native-orientation-locker: 2da91e5391971dace445495821c899c111dcad7a
+  react-native-splash-screen: 4312f786b13a81b5169ef346d76d33bc0c6dc457
   react-native-track-player: 89cf8fd9df3ddf3f0b9e937828ad1c570dc9b435
   React-perflogger: 93d3f142d6d9a46e635f09ba0518027215a41098
   React-RCTActionSheet: 87327c3722203cc79cf79d02fb83e7332aeedd18
