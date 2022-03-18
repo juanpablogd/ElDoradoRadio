@@ -4,7 +4,7 @@
 
 import React,{ Component, useState } from 'react';
 
-import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,useColorScheme,View,Animated,Easing,ImageBackground,
+import {SafeAreaView,ScrollView,StatusBar,StyleSheet,Text,useColorScheme,View,Animated,Easing,ImageBackground,Alert,
 } from 'react-native';
 
 import { Slider,Icon } from 'react-native-elements';
@@ -20,7 +20,13 @@ import TrackPlayer, {
 import { OrientationLocker, PORTRAIT, LANDSCAPE } from "react-native-orientation-locker";
 
 import Spinner from 'react-native-loading-spinner-overlay';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import SplashScreen from 'react-native-splash-screen'
+
+import messaging from '@react-native-firebase/messaging';
+
 import MenuConnect from './src/components/MenuConnect';
 //import ControlVolumen from './src/components/ControlVolumen';
 import imageBG from './img/FondoApp7-01.jpg';
@@ -71,6 +77,12 @@ class App extends Component {
           }
       }
     })
+
+    this.requestUserPermission();
+
+  }
+  componentWillUnmount() {
+    console.log('Registro - evento UNMount');
   }
 
   setVol(volValue){  //console.log(someValue);
@@ -146,6 +158,127 @@ class App extends Component {
   };
 /**********************************************************/
 
+/******************** NOTIFICACIONES PUSH ********************/
+async requestUserPermission() {
+  const authStatus = await messaging().requestPermission();
+  const enabled =
+    authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+    authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+  if (enabled) {
+    console.log('Authorization status:', authStatus);
+    if(authStatus==1){
+      this.VerificaSuscripcion();
+    }
+  }
+}
+
+async VerificaSuscripcion () {
+  console.log('Verifica suscripcion');
+  try {
+    const suscrito = await AsyncStorage.getItem('@suscrito'); console.log('suscrito: ' + suscrito);
+    if (suscrito == null) {
+      messaging().subscribeToTopic('CUNDINAMARCA').then(() => console.log('Subscribed to CUNDINAMARCA!')).catch((error) => {console.log(error)});
+      this.setLocalstorage('@suscrito', 'S');
+    }
+
+    this.createNotificationListenerFOREGROUND();
+    this.createNotificationListenerBACKGROUND();
+    this.getInitialNotification();
+    this.createNotificationListenerGB();
+    this.checkNotificacionPush();
+  } catch (e) {
+    console.log(e);
+    // error reading value
+  }
+};
+
+async createNotificationListenerFOREGROUND() {
+  const unsubscribe = messaging().onMessage(async remoteMessage => {
+    console.log('Nuevo Mensaje PRIMER PLANO!', JSON.stringify(remoteMessage));
+
+      Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
+
+  });
+}
+
+async createNotificationListenerBACKGROUND(){
+  messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('++++++++++++++++++++++++Message handled in the background!', remoteMessage);
+  });
+}
+
+async getInitialNotification() {
+  // When a user tap on a push notification and the app is CLOSED
+  messaging().getInitialNotification().then((remoteMessage) => {
+    if (remoteMessage) {
+      console.log('///////////////////++App Closed Push Notification opened!', remoteMessage);
+      if(remoteMessage.data.url!=""){
+        Alert.alert(
+          remoteMessage.notification.title,
+          remoteMessage.notification.body,
+          [
+            /*{
+              text: "Cancelar",
+              onPress: () => console.log("Cancel Pressed"),
+              style: "cancel"
+            },*/
+            { text: "ok", onPress: () => {
+              console.log(`getInitialNotification OK`);
+              /*const supported = Linking.canOpenURL(remoteMessage.data.url);
+
+              if (supported) {
+                Linking.openURL(remoteMessage.data.url);
+              } else {
+                console.log(`Don't know how to open this URL: ${remoteMessage.data.url}`);
+              }*/
+            } 
+          }
+          ],
+          { cancelable: false }
+        );
+      } else{
+        Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
+      }
+    }
+  });
+}
+
+async createNotificationListenerGB() {
+  const unsubscribe = messaging().onNotificationOpenedApp(async remoteMessage => {
+    console.log('---------------------------Background Push Notification opened', JSON.stringify(remoteMessage));
+    console.log("URL: " + remoteMessage.data.url);
+
+    if(remoteMessage.data.url!=""){
+      Alert.alert(
+        remoteMessage.notification.title,
+        remoteMessage.notification.body,
+        [
+          { text: "Ok", onPress: () => {
+              console.log(`createNotificationListenerGB OK`);
+            } 
+          }
+        ],
+        { cancelable: false }
+      );
+    } else{
+      Alert.alert(remoteMessage.notification.title, remoteMessage.notification.body);
+    }
+
+
+  });
+}
+
+checkNotificacionPush = async () => {
+  const msjPush = await AsyncStorage.getItem('@push');
+  console.log("****************************push: " + msjPush);
+}
+/**********************************************************/
+
+setLocalstorage = async (item, valor) => {
+  console.log(item + ' ' + valor);
+  await AsyncStorage.setItem(item, valor);
+};
 
   render () { //console.log('Renderiza Registro');
     return (
