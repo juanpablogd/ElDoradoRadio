@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>747115521474-ti8or3g0fuu0rh2eakm4iui17hm7g0j2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.747115521474-ti8or3g0fuu0rh2eakm4iui17hm7g0j2</string>
+	<key>API_KEY</key>
+	<string>AIzaSyANz53xZ_PG_OHwh6n9gsDtx9XAi1ad3Vo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>747115521474</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.doradoradio</string>
+	<key>PROJECT_ID</key>
+	<string>eldoradoradiogob</string>
+	<key>STORAGE_BUCKET</key>
+	<string>eldoradoradiogob.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:747115521474:ios:b642738a2e4b7f6e7ae25b</string>
+</dict>
+</plist>

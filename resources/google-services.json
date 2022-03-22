@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "747115521474",
+    "project_id": "eldoradoradiogob",
+    "storage_bucket": "eldoradoradiogob.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747115521474:android:a9e3473f27c3750b7ae25b",
+        "android_client_info": {
+          "package_name": "com.doradoradio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747115521474-kidmh42q8jdjhbgfkpsfvgfbqncegl48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWaBFp45kgJrm6MVF8TOz_C0C6_bJMhrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747115521474-kidmh42q8jdjhbgfkpsfvgfbqncegl48.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
