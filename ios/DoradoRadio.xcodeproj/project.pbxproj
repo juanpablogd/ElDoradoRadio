@@ -518,7 +518,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.doradoradio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doradoradio2022;
 				PRODUCT_NAME = DoradoRadio;
 				SWIFT_OBJC_BRIDGING_HEADER = "DoradoRadio-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -546,7 +546,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.doradoradio;
+				PRODUCT_BUNDLE_IDENTIFIER = com.doradoradio2022;
 				PRODUCT_NAME = DoradoRadio;
 				SWIFT_OBJC_BRIDGING_HEADER = "DoradoRadio-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;

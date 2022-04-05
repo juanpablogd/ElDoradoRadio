@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>DoradoRadio</string>
+	<string>El Dorado Radio</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -81,6 +81,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+  <array>
+  <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+  </array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>
